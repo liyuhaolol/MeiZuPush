@@ -14,7 +14,7 @@
     <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE"/>
     <permission android:name="cn.lyh.spa.meizupush.push.permission.MESSAGE"
         android:protectionLevel="signature"/>
-    <uses-permission android:name="${PACKAGE_NAME}.push.permission.MESSAGE"/>
+    <uses-permission android:name="cn.lyh.spa.meizupush.push.permission.MESSAGE"/>
     <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
     <permission android:name="cn.lyh.spa.meizupush.permission.C2D_MESSAGE"
         android:protectionLevel="signature"/>
@@ -37,11 +37,23 @@
         </activity>
 
         <!-- 华为移动服务配置,将${PACKAGE_NAME}替换为实际包名 -->
-        <provider
+       <provider
             android:name="com.huawei.hms.update.provider.UpdateProvider"
             android:authorities="cn.lyh.spa.meizupush.hms.update.provider"
             android:exported="false"
             android:grantUriPermissions="true" />
+
+        <!-- 统一推送配置 --> <!-- the following 4 ${PACKAGE_NAME} should be changed to your actual package name where the implemented UpsReceiver belong to -->
+        <receiver android:name=".receiver.UpsReceiver">
+            <intent-filter>        <!-- 接收 push 消息 -->
+                <action android:name="com.meizu.ups.push.intent.MESSAGE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- APPID 华为移动服务配置 请将 value 替换成实际的 appid -->
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="100268779" />
 
     </application>
 
