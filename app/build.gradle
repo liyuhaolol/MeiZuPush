@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "cn.lyh.spa.meizupush"
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -23,4 +23,5 @@ dependencies {
 
     implementation 'com.meizu.flyme.internet:push-ups:2.0.0'
     implementation files('libs/MiPush_SDK_Client_3_6_2.jar')
+    implementation 'com.meizu.flyme.internet:push-internal:3.6.3@aar'
 }
