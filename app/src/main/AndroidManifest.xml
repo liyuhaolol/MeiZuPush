@@ -22,6 +22,7 @@
 
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -64,10 +65,10 @@
             android:value="\5581778270127"/>
         <meta-data
             android:name="MEIZU_APP_ID"
-            android:value="1000357"/>
+            android:value="113199"/>
         <meta-data
             android:name="MEIZU_APP_KEY"
-            android:value="e7e0e4ea5ce04fab8b83695059364983"/>
+            android:value="c8e7741d584b4494aa6f6b31b3dc8315"/>
 
     </application>
 
