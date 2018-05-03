@@ -1,4 +1,4 @@
-package cn.lyh.spa.meizupush;
+package cn.lyh.spa.meizupush.applicatioin;
 
 import android.app.Application;
 
