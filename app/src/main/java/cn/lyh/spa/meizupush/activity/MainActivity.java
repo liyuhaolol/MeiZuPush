@@ -2,6 +2,7 @@ package cn.lyh.spa.meizupush.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.meizu.upspushsdklib.UpsPushManager;
 
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        UpsPushManager.setAlias(getApplicationContext(),"samsung");
+        //UpsPushManager.setAlias(getApplicationContext(),"samsung");
 
     }
 }

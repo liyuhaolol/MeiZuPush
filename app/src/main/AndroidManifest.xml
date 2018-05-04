@@ -44,9 +44,9 @@
         </activity>
 
         <!-- 注册BOOT服务-->
-        <service android:name=".service.BootService"/>
+        <service android:name=".push.service.BootService"/>
 
-        <receiver android:name=".receiver.BootReceiver">
+        <receiver android:name=".push.receiver.BootReceiver">
             <intent-filter>
                 <!-- 系统启动完成后会调用-->
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -61,7 +61,7 @@
             android:grantUriPermissions="true" />
 
         <!-- 统一推送配置 --> <!-- the following 4 ${PACKAGE_NAME} should be changed to your actual package name where the implemented UpsReceiver belong to -->
-        <receiver android:name=".receiver.UpsReceiver">
+        <receiver android:name=".push.receiver.UpsReceiver">
             <intent-filter>        <!-- 接收 push 消息 -->
                 <action android:name="com.meizu.ups.push.intent.MESSAGE" />
             </intent-filter>

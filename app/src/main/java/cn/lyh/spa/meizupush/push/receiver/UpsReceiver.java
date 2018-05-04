@@ -1,4 +1,4 @@
-package cn.lyh.spa.meizupush.receiver;
+package cn.lyh.spa.meizupush.push.receiver;
 
 import android.content.Context;
 import android.content.SharedPreferences;
