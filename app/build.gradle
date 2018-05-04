@@ -24,4 +24,5 @@ dependencies {
     implementation 'com.meizu.flyme.internet:push-ups:2.0.0'
     //implementation files('libs/MiPush_SDK_Client_3_6_2.jar')
     //api 'com.meizu.flyme.internet:push-internal:3.6.3@aar'
+    //api ('com.meizu.flyme.internet:push-ups:3.0.0')
 }
