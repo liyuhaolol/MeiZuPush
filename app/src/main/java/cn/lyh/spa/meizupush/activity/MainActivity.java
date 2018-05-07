@@ -1,5 +1,6 @@
 package cn.lyh.spa.meizupush.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import com.meizu.upspushsdklib.UpsPushManager;
 
 import cn.lyh.spa.meizupush.R;
 import cn.lyh.spa.meizupush.push.PushUtil;
+import cn.lyh.spa.meizupush.push.service.BootService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +24,14 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.start:
-                PushUtil.registerPush(getApplicationContext());
-                PushUtil.setAlias(getApplicationContext(),"coolpad");
+                /*PushUtil.registerPush(getApplicationContext());
+                PushUtil.setAlias(getApplicationContext(),"xiaomi");*/
+                Intent intent = new Intent();
+                intent.setAction(BootService.ACTION_ACTIVITY);
+                sendBroadcast(intent);
                 break;
             case R.id.stop:
+                PushUtil.unSetAlias(getApplicationContext(),"xiaomi");
                 PushUtil.unregisterPush(getApplicationContext());
                 break;
         }

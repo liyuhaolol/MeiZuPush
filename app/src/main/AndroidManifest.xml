@@ -51,9 +51,9 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <!--华为推送需要的转跳Activity，请根据具体项目设置具体名称-->
-                <!--<data android:scheme="tangyin"
+                <data android:scheme="tangyin"
                     android:host="unit.push"
-                    android:path="/notify_sync"/>-->
+                    android:path="/notify_sync"/>
             </intent-filter>
         </activity>
 

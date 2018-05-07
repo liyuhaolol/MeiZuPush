@@ -15,7 +15,7 @@ public class App extends Application{
     public void onCreate() {
         super.onCreate();
         PushUtil.registerPush(getApplicationContext());
-        PushUtil.setAlias(getApplicationContext(),"coolpad");
+        PushUtil.setAlias(getApplicationContext(),"xiaomi");
         //设置后台自启动
         PushUtil.setAutoRun(getApplicationContext());
     }

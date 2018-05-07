@@ -22,34 +22,11 @@ public class UpsReceiver extends UpsPushMessageReceiver{
 
     @Override
     public void onNotificationClicked(Context context, UpsPushMessage upsPushMessage) {
-        Log.e("liyuhao","点击了通知");
-        switch (upsPushMessage.getCompany()){
-            case MEIZU:
-                //String extra = (String) upsPushMessage.getExtra();
-                MzPushMessage mzPushMessage = (MzPushMessage) upsPushMessage.getExtra();
-                if (mzPushMessage != null){
-                    Log.e("liyuhao","消息内容为:"+mzPushMessage.getSelfDefineContentString());
-                }
-                break;
-            case XIAOMI:
-                MiPushMessage miPushMssage = (MiPushMessage)upsPushMessage.getExtra();
-                String a = miPushMssage.getExtra().get("json");
-                if (a != null){
-                    Log.e("liyuhao",a);
-                }
-                break;
-            case HUAWEI:
-                Bundle bundle = (Bundle)upsPushMessage.getExtra();
-                break;
-            case OTHER:
-            case DEFAULT:
-                break;
-        }
+
     }
 
     @Override
     public void onNotificationArrived(Context context, UpsPushMessage upsPushMessage) {
-
     }
 
     @Override
