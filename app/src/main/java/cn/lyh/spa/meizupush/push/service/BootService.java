@@ -82,7 +82,7 @@ public class BootService extends Service{
      * @param context 上下文
      * @param msg json
      */
-    public static void syncMessage(Context context, String msg){
+    public void syncMessage(Context context, String msg){
         try {
             PushThrowMessage pMsg = JSONObject.parseObject(msg,PushThrowMessage.class);
             switch (pMsg.type){
@@ -106,7 +106,7 @@ public class BootService extends Service{
      * @param context 上下文
      * @param msg json
      */
-    private static void notification(Context context,String msg){
+    private void notification(Context context,String msg){
         try {
             PushThrowMessage<NotificationSample> pMsg = JSONObject
                     .parseObject(msg,new TypeReference<PushThrowMessage<NotificationSample>>(){});
@@ -153,12 +153,14 @@ public class BootService extends Service{
         }
     }
 
-    private static void startActivity(Context context , Intent intent){
+    private void startActivity(Context context , Intent intent){
         //判断应用是否在运行
 
-        if (isAppIsInBackground(context)){//程序正在运行
+        if (!isBackground()){//程序正在运行
+            Log.e("liyuhao","前台运行");
             context.startActivity(intent);
         }else {
+            Log.e("liyuhao","后台运行");
             try {
                 Class clazz = Class.forName(ActivityList.INDEX_PAGE);
                 Intent m = new Intent(context,clazz);
@@ -173,16 +175,16 @@ public class BootService extends Service{
 
     }
 
-    private static boolean isAppIsInBackground(Context context) {
+    private boolean isAppIsInBackground() {
         boolean isInBackground = true;
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager am = (ActivityManager) getApplication().getSystemService(Context.ACTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
             List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
             for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
                 //前台程序
                 if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
                     for (String activeProcess : processInfo.pkgList) {
-                        if (activeProcess.equals(context.getPackageName())) {
+                        if (activeProcess.equals(getApplication().getPackageName())) {
                             isInBackground = false;
                         }
                     }
@@ -191,11 +193,26 @@ public class BootService extends Service{
         } else {
             List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
             ComponentName componentInfo = taskInfo.get(0).topActivity;
-            if (componentInfo.getPackageName().equals(context.getPackageName())) {
+            if (componentInfo.getPackageName().equals(getApplication().getPackageName())) {
                 isInBackground = false;
             }
         }
 
         return isInBackground;
+    }
+
+
+    public boolean isBackground() {
+        ActivityManager am = (ActivityManager) getApplication().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = am.getRunningAppProcesses();
+        if (appProcesses == null)
+            return true;
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(getApplication().getPackageName())
+                    && (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE || appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
