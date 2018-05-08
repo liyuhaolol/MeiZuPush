@@ -24,11 +24,8 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.start:
-                /*PushUtil.registerPush(getApplicationContext());
-                PushUtil.setAlias(getApplicationContext(),"xiaomi");*/
-                Intent intent = new Intent();
-                intent.setAction(BootService.ACTION_ACTIVITY);
-                sendBroadcast(intent);
+                //PushUtil.registerPush(getApplicationContext());
+                PushUtil.setAlias(getApplicationContext(),"coolpad");
                 break;
             case R.id.stop:
                 PushUtil.unSetAlias(getApplicationContext(),"xiaomi");

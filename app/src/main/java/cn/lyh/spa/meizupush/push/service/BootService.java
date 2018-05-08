@@ -3,9 +3,11 @@ package cn.lyh.spa.meizupush.push.service;
 import android.app.ActivityManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -153,17 +155,8 @@ public class BootService extends Service{
 
     private static void startActivity(Context context , Intent intent){
         //判断应用是否在运行
-        ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(100);
-        boolean isAppRunning = false;
-        for (ActivityManager.RunningTaskInfo info : list) {
-            if (info.topActivity.getPackageName().equals(ActivityList.MY_PKG_NAME) || info.baseActivity.getPackageName().equals(ActivityList.MY_PKG_NAME)) {
-                isAppRunning = true;
-                break;
-            }
-        }
 
-        if (isAppRunning){//程序正在运行
+        if (isAppIsInBackground(context)){//程序正在运行
             context.startActivity(intent);
         }else {
             try {
@@ -178,5 +171,31 @@ public class BootService extends Service{
         }
 
 
+    }
+
+    private static boolean isAppIsInBackground(Context context) {
+        boolean isInBackground = true;
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+            List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
+            for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
+                //前台程序
+                if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                    for (String activeProcess : processInfo.pkgList) {
+                        if (activeProcess.equals(context.getPackageName())) {
+                            isInBackground = false;
+                        }
+                    }
+                }
+            }
+        } else {
+            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+            ComponentName componentInfo = taskInfo.get(0).topActivity;
+            if (componentInfo.getPackageName().equals(context.getPackageName())) {
+                isInBackground = false;
+            }
+        }
+
+        return isInBackground;
     }
 }

@@ -45,7 +45,8 @@
         </activity>
         <activity android:name=".activity.MyActivity"/>
 
-        <activity android:name=".push.activity.SyncActivity">
+        <activity android:name=".push.activity.SyncActivity"
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
