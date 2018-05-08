@@ -41,6 +41,8 @@ public class PushUtil {
         UpsPushManager.register(context,appId,appKey);
     }
 
+    public static void registerActivityLife(){}
+
     /**
      * 反注册推送
      * @param context
@@ -61,7 +63,7 @@ public class PushUtil {
             public void run() {
                 UpsPushManager.setAlias(context,alias);
             }
-        },5000);
+        },3000);
     }
 
     /**

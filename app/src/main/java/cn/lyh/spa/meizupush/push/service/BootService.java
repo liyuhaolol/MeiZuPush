@@ -19,6 +19,7 @@ import java.util.List;
 
 import cn.lyh.spa.meizupush.ActivityList;
 import cn.lyh.spa.meizupush.activity.MyActivity;
+import cn.lyh.spa.meizupush.push.ActivityLifecycleListener;
 import cn.lyh.spa.meizupush.push.model.NotificationSample;
 import cn.lyh.spa.meizupush.push.model.base.PushThrowMessage;
 
@@ -155,8 +156,7 @@ public class BootService extends Service{
 
     private void startActivity(Context context , Intent intent){
         //判断应用是否在运行
-
-        if (!isBackground()){//程序正在运行
+        if (ActivityLifecycleListener.isApplicationInForeground()){//程序正在运行
             Log.e("liyuhao","前台运行");
             context.startActivity(intent);
         }else {

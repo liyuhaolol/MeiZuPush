@@ -1,7 +1,9 @@
 package cn.lyh.spa.meizupush.applicatioin;
 
+
 import android.app.Application;
 
+import cn.lyh.spa.meizupush.push.ActivityLifecycleListener;
 import cn.lyh.spa.meizupush.push.PushUtil;
 
 
@@ -18,5 +20,6 @@ public class App extends Application{
         PushUtil.setAlias(getApplicationContext(),"meizu");
         //设置后台自启动
         PushUtil.setAutoRun(getApplicationContext());
+        registerActivityLifecycleCallbacks(new ActivityLifecycleListener());
     }
 }
