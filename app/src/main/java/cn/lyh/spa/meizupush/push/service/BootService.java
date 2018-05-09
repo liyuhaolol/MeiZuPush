@@ -1,13 +1,10 @@
 package cn.lyh.spa.meizupush.push.service;
 
-import android.app.ActivityManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,10 +12,8 @@ import android.util.Log;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 
-import java.util.List;
 
 import cn.lyh.spa.meizupush.ActivityList;
-import cn.lyh.spa.meizupush.activity.MyActivity;
 import cn.lyh.spa.meizupush.push.ActivityLifecycleListener;
 import cn.lyh.spa.meizupush.push.model.NotificationSample;
 import cn.lyh.spa.meizupush.push.model.base.PushThrowMessage;
@@ -175,44 +170,4 @@ public class BootService extends Service{
 
     }
 
-    private boolean isAppIsInBackground() {
-        boolean isInBackground = true;
-        ActivityManager am = (ActivityManager) getApplication().getSystemService(Context.ACTIVITY_SERVICE);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
-            List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
-            for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
-                //前台程序
-                if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                    for (String activeProcess : processInfo.pkgList) {
-                        if (activeProcess.equals(getApplication().getPackageName())) {
-                            isInBackground = false;
-                        }
-                    }
-                }
-            }
-        } else {
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-            ComponentName componentInfo = taskInfo.get(0).topActivity;
-            if (componentInfo.getPackageName().equals(getApplication().getPackageName())) {
-                isInBackground = false;
-            }
-        }
-
-        return isInBackground;
-    }
-
-
-    public boolean isBackground() {
-        ActivityManager am = (ActivityManager) getApplication().getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> appProcesses = am.getRunningAppProcesses();
-        if (appProcesses == null)
-            return true;
-        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
-            if (appProcess.processName.equals(getApplication().getPackageName())
-                    && (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE || appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND)) {
-                return false;
-            }
-        }
-        return true;
-    }
 }
