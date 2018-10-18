@@ -8,26 +8,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
-    <!-- 小米个性化配置 需要到应用的主 manifest 中去配置-->
-    <!-- the following 2 ${PACKAGE_NAME} should be changed to your package name -->
-    <permission android:name="cn.lyh.spa.meizupush.permission.MIPUSH_RECEIVE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="cn.lyh.spa.meizupush.permission.MIPUSH_RECEIVE" />
-
-    <!-- 魅族个性化配置 需要到应用的主 manifest 中去配置-->
-    <!-- the following 4 ${PACKAGE_NAME} should be changed to your package name -->
-    <!-- 兼容flyme5.0以下版本，魅族内部集成pushSDK必填，不然无法收到消息-->
-    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE"/>
-    <permission android:name="cn.lyh.spa.meizupush.push.permission.MESSAGE"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="cn.lyh.spa.meizupush.push.permission.MESSAGE"/>
-    <!--  兼容flyme3.0配置权限-->
-    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
-    <permission android:name="cn.lyh.spa.meizupush.permission.C2D_MESSAGE"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="cn.lyh.spa.meizupush.permission.C2D_MESSAGE"/>
-
-
     <application
         android:name=".applicatioin.App"
         android:allowBackup="true"
@@ -74,32 +54,6 @@
                 <action android:name="com.meizu.ups.push.intent.MESSAGE" />
             </intent-filter>
         </receiver>
-
-        <!-- 华为移动服务配置,将${PACKAGE_NAME}替换为实际包名 -->
-        <provider
-             android:name="com.huawei.hms.update.provider.UpdateProvider"
-             android:authorities="cn.lyh.spa.meizupush.hms.update.provider"
-             android:exported="false"
-             android:grantUriPermissions="true" />
-
-        <!-- APPID 华为移动服务配置 请将 value 替换成实际的 appid -->
-        <meta-data
-           android:name="com.huawei.hms.client.appid"
-           android:value="100268779" />
-
-       <!-- 应用信息本地设置测试[可选] -->
-        <meta-data
-           android:name="XIAOMI_APP_ID"
-           android:value="\2882303761517782127"/>
-       <meta-data
-           android:name="XIAOMI_APP_KEY"
-           android:value="\5581778270127"/>
-       <meta-data
-           android:name="MEIZU_APP_ID"
-           android:value="113199"/>
-       <meta-data
-           android:name="MEIZU_APP_KEY"
-           android:value="c8e7741d584b4494aa6f6b31b3dc8315"/>
 
    </application>
 

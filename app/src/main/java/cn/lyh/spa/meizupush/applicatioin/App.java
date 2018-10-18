@@ -17,7 +17,7 @@ public class App extends Application{
     public void onCreate() {
         super.onCreate();
         PushUtil.registerPush(getApplicationContext());
-        PushUtil.setAlias(getApplicationContext(),"meizu");
+        PushUtil.setAlias(getApplicationContext(),"coolpad");
         //设置后台自启动
         PushUtil.setAutoRun(getApplicationContext());
         registerActivityLifecycleCallbacks(new ActivityLifecycleListener());

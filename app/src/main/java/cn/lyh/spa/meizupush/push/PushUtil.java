@@ -41,7 +41,7 @@ public class PushUtil {
         UpsPushManager.register(context,appId,appKey);
     }
 
-    public static void registerActivityLife(){}
+    //public static void registerActivityLife(){}
 
     /**
      * 反注册推送

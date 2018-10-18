@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 
+def mzAppId = project.getProperties().get("MEIZU_APP_ID") ?:"113199"
+def mzAppKey = project.getProperties().get("MEIZU_APP_KEY") ?: "c8e7741d584b4494aa6f6b31b3dc8315"
+def xmAppId = project.getProperties().get("XIAOMI_APP_ID") ?:"\\2882303761517782127"
+def xmAppKey = project.getProperties().get("XIAOMI_APP_KEY") ?:"\\5581778270127"
+def hwAppId = project.getProperties().get("HUAWEI_APP_ID") ?: "100268779"
+def jiguangAppKey = project.getProperties().get("JIGUANG_APP_KEY") ?: "dcbbb1602734c9bcca87518c"
+def appPackageName = project.getProperties().get("PACKAGE_NAME")?:"cn.lyh.spa.meizupush"
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -8,6 +16,22 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+
+        ndk {
+            //建议只配置x86,armeabi,好像魅族集成推送不能用arm的64为构架，会报错
+            abiFilters 'x86','armeabi'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [XIAOMI_APP_ID: xmAppId,
+                                XIAOMI_APP_KEY: xmAppKey,
+                                MEIZU_APP_ID: mzAppId,
+                                MEIZU_APP_KEY: mzAppKey,
+                                HUAWEI_APP_ID: hwAppId,
+                                PACKAGE_NAME: appPackageName,
+                                JPUSH_PKGNAME : appPackageName,
+                                JPUSH_APPKEY : jiguangAppKey, //JPush上注册的包名对应的appkey.
+                                JPUSH_CHANNEL : "developer-default"] //暂时填写默认值即可.
     }
     buildTypes {
         release {
@@ -21,9 +45,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
 
-    implementation 'com.meizu.flyme.internet:push-ups:2.0.0'
+    implementation 'com.meizu.flyme.internet:push-ups:3.0.1'
     implementation 'com.alibaba:fastjson:1.2.33'
-    //implementation files('libs/MiPush_SDK_Client_3_6_2.jar')
-    //api 'com.meizu.flyme.internet:push-internal:3.6.3@aar'
-    //api ('com.meizu.flyme.internet:push-ups:3.0.0')
 }
